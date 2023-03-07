@@ -1,0 +1,11 @@
+{
+    "name": "tomasvotruba/laratyped",
+    "autoload": {
+        "psr-4": {
+            "Tomasvotruba\\Laratyped\\": "src/"
+        }
+    },
+    "require": {
+        "phpstan/phpstan": "^1.10"
+    }
+}
