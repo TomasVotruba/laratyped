@@ -25,7 +25,7 @@ final class NoEloquentModelOutsideRepositoryRule implements Rule
     /**
      * @var string
      */
-    public const ERROR_MESSAGE = 'Calling active model method "%d()" is allowed only in repository';
+    public const ERROR_MESSAGE = 'Calling active model method "%s()" is allowed only in repository';
 
     public function getNodeType(): string
     {
@@ -39,7 +39,7 @@ final class NoEloquentModelOutsideRepositoryRule implements Rule
     public function processNode(Node $node, Scope $scope): array
     {
         $methodName = $this->resolveMethodName($node);
-        if (in_array($methodName, self::ACTIVE_METHOD_NAMES, true)) {
+        if (! in_array($methodName, self::ACTIVE_METHOD_NAMES, true)) {
             return [];
         }
 
