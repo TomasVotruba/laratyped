@@ -47,13 +47,7 @@ final class NoEloquentModelOutsideRepositoryRule implements Rule
             return [];
         }
 
-        $classReflection = $scope->getClassReflection();
-        if (! $classReflection instanceof ClassReflection) {
-            return [];
-        }
-
-        // allowed in repository only
-        if (str_ends_with($classReflection->getName(), 'Repository')) {
+        if (! $this->isRepositoryClass($scope)) {
             return [];
         }
 
@@ -80,5 +74,16 @@ final class NoEloquentModelOutsideRepositoryRule implements Rule
         }
 
         return $callerType->isInstanceOf('Illuminate\Database\Eloquent\Model')->yes();
+    }
+
+    private function isRepositoryClass(Scope $scope): bool
+    {
+        $classReflection = $scope->getClassReflection();
+        if (! $classReflection instanceof ClassReflection) {
+            return false;
+        }
+
+        // allowed in repository only
+        return str_ends_with($classReflection->getName(), 'Repository');
     }
 }
