@@ -20,7 +20,7 @@ final class NoEloquentModelOutsideRepositoryRule implements Rule
     /**
      * @var string[]
      */
-    public const ACTIVE_METHOD_NAMES = ['save', 'get', 'count'];
+    public const ACTIVE_METHOD_NAMES = ['save', 'get', 'count', 'all', 'query'];
 
     /**
      * @var string
