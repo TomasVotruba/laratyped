@@ -24,8 +24,10 @@ final class NoEloquentModelOutsideRepositoryRuleTest extends RuleTestCase
     public static function provideData(): Iterator
     {
         $errorMessage = sprintf(NoEloquentModelOutsideRepositoryRule::ERROR_MESSAGE, 'save');
-
         yield [__DIR__ . '/Fixture/CallingModelSomewhere.php', [[$errorMessage, 11]]];
+
+        $errorMessage = sprintf(NoEloquentModelOutsideRepositoryRule::ERROR_MESSAGE, 'save');
+        yield [__DIR__ . '/Fixture/IncludeSelfSave.php', [[$errorMessage, 11]]];
     }
 
     /**
