@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tomasvotruba\Laratyped\Tests\Rule\NoRepositoryStaticMethodRule;
 
+use Iterator;
 use PHPStan\Rules\Rule;
 use PHPStan\Testing\RuleTestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -22,7 +23,7 @@ final class NoRepositoryStaticMethodRuleTest extends RuleTestCase
         $this->analyse([$filePath], $expectedErrorsWithLines);
     }
 
-    public static function provideData(): \Iterator
+    public static function provideData(): Iterator
     {
         yield [
             __DIR__ . '/Fixture/WithStaticClassMethodRepository.php',

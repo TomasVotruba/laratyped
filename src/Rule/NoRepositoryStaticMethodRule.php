@@ -37,11 +37,14 @@ final class NoRepositoryStaticMethodRule implements Rule
             return [];
         }
 
-        $class = $node->getOriginalNode();
+        $classLike = $node->getOriginalNode();
+        if (! $classLike instanceof Node\Stmt\Class_) {
+            return [];
+        }
 
         $ruleErrors = [];
 
-        foreach ($class->getMethods() as $method) {
+        foreach ($classLike->getMethods() as $method) {
             if (! $method->isStatic()) {
                 continue;
             }
