@@ -43,7 +43,7 @@ final class NoEloquentModelOutsideRepositoryRule implements Rule
             return [];
         }
 
-        if (! $this->isLaravelModelObjectType($scope, $node)) {
+        if (! $this->isLaravelModelObjectType($node, $scope)) {
             return [];
         }
 
@@ -71,9 +71,10 @@ final class NoEloquentModelOutsideRepositoryRule implements Rule
         return $methodCall->name->toString();
     }
 
-    private function isLaravelModelObjectType(Scope $scope, MethodCall|Node $node): bool
+    private function isLaravelModelObjectType(MethodCall $methodCall, Scope $scope): bool
     {
-        $callerType = $scope->getType($node->var);
+        $callerType = $scope->getType($methodCall->var);
+
         if (! $callerType instanceof ObjectType) {
             return false;
         }
