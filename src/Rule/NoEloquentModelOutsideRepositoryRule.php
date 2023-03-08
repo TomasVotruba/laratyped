@@ -11,6 +11,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Rules\Rule;
 use PHPStan\Type\ObjectType;
+use PHPStan\Type\ThisType;
 
 /**
  * @see \Tomasvotruba\Laratyped\Tests\Rule\NoEloquentModelOutsideRepositoryRule\NoEloquentModelOutsideRepositoryRuleTest
@@ -47,7 +48,7 @@ final class NoEloquentModelOutsideRepositoryRule implements Rule
             return [];
         }
 
-        if (! $this->isRepositoryClass($scope)) {
+        if ($this->isRepositoryClass($scope)) {
             return [];
         }
 
@@ -68,6 +69,10 @@ final class NoEloquentModelOutsideRepositoryRule implements Rule
     private function isLaravelModelObjectType(MethodCall $methodCall, Scope $scope): bool
     {
         $callerType = $scope->getType($methodCall->var);
+
+        if ($callerType instanceof ThisType) {
+            $callerType = new ObjectType($callerType->getClassName());
+        }
 
         if (! $callerType instanceof ObjectType) {
             return false;
