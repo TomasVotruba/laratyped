@@ -12,3 +12,7 @@ parameters:
         - '*/Source/*'
 
     checkGenericClassInNonGenericObjectType: false
+
+    ignoreErrors:
+        # always mixed
+        - '#Method Tomasvotruba\\Laratyped\\Tests\\Rule(.*?)testRule\(\) has parameter \$expectedErrorsWithLines with no value type specified#'
