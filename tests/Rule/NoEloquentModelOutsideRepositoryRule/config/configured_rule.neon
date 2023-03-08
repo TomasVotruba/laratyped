@@ -1,0 +1,2 @@
+rules:
+	- Tomasvotruba\Laratyped\Rule\NoEloquentModelOutsideRepositoryRule
